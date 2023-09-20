@@ -7,6 +7,7 @@ import { WebIcon } from "../../components/Image/image";
 import { TecIcon } from "../../components/Image/image";
 import { VisIcon } from "../../components/Image/image";
 import { ProjectIcon } from "../../components/Image/image";
+import { useNavigate } from "react-router-dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -27,30 +28,32 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("Artificial Intelligences", "1", <AIIcon />),
-  getItem("Software Web", "2", <WebIcon />),
-  getItem("Technologies ", "3", <TecIcon />),
+  getItem("Artificial Intelligences", "ArtificialIntelligence", <AIIcon />),
+  getItem("Software Web", "SoftwareWeb", <WebIcon />),
+  getItem("Technologies ", "Technology", <TecIcon />),
 
-  getItem("Projects WEB", "sub1", <ProjectIcon />, [
-    getItem("Option 5", "5"),
-    getItem("Option 6", "6"),
+  getItem("Projects WEB", "ProjectsWeb", <ProjectIcon />, [
+    getItem("Projeto 1", "ProjectsWeb1"),
+    getItem("projeto 2", "ProjectsWeb2"),
   ]),
 
-  getItem("Projects IA ", "sub2", <VisIcon />, [
-    getItem("Option 7", "7"),
-    getItem("Option 8", "8"),
+  getItem("Projects IA ", "ProjectsAI", <VisIcon />, [
+    getItem("Projeto 1", "ProjectsAI1"),
+    getItem("Projeto 2", "ProjectsAI2"),
   ]),
 ];
 
 function NavBar() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
 
+  const navigate = useNavigate();
+
   return (
-    <div style={{ width: 256 }}>
+    <div style={{ maxWidth: "100%", margin: "0 auto" }}>
       <Button
         type="link"
         onClick={toggleCollapsed}
@@ -61,7 +64,7 @@ function NavBar() {
       <Menu
         style={{
           backgroundColor: "black",
-          boxShadow: "1px white",
+          boxShadow: "4px 1px 4px 1px #ffffff82",
           border: "1px solid white",
           color: "white",
         }}
@@ -71,6 +74,9 @@ function NavBar() {
         theme="light"
         inlineCollapsed={collapsed}
         items={items}
+        onClick={(item) => {
+          navigate(item.key);
+        }}
       />
     </div>
   );
